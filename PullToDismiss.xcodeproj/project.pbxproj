@@ -140,9 +140,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D870AB51DDAA0CD00575A28 /* Build configuration list for PBXNativeTarget "PullToDismiss" */;
 			buildPhases = (
+				4D870A9E1DDAA0CD00575A28 /* Headers */,
 				4D870A9C1DDAA0CD00575A28 /* Sources */,
 				4D870A9D1DDAA0CD00575A28 /* Frameworks */,
-				4D870A9E1DDAA0CD00575A28 /* Headers */,
 				4D870A9F1DDAA0CD00575A28 /* Resources */,
 				4D2F15C41DF30884000A5172 /* Swiftlint */,
 			);
@@ -186,13 +186,13 @@
 					4D870AA01DDAA0CD00575A28 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = KW3G83N6K6;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					4D870AA91DDAA0CD00575A28 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = KW3G83N6K6;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -422,7 +422,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -444,7 +444,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
