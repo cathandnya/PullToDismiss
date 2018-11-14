@@ -52,6 +52,9 @@ open class PullToDismiss: NSObject {
     private var backgroundView: UIView?
     private var navigationBarHeight: CGFloat = 0.0
     private var blurSaturationDeltaFactor: CGFloat = 1.8
+    
+    private var snapshotView: UIView?
+
     convenience public init?(scrollView: UIScrollView) {
         guard let viewController = type(of: self).viewControllerFromScrollView(scrollView) else {
             print("a scrollView must be on the view controller.")
@@ -238,8 +241,17 @@ extension PullToDismiss: UIScrollViewDelegate {
         if dragging {
             let diff = -(scrollView.contentOffset.y - previousContentOffsetY)
             if scrollView.contentOffset.y < -scrollView.contentInset.top || (targetViewController?.view.frame.origin.y ?? 0.0) > 0.0 {
+                if snapshotView == nil {
+                    snapshotView = targetViewController?.view.snapshotView(afterScreenUpdates: false)
+                    snapshotView?.isUserInteractionEnabled = false
+                    snapshotView.flatMap({ targetViewController?.view.addSubview($0) })
+                }
+                
                 updateViewPosition(offset: diff)
                 scrollView.contentOffset.y = -scrollView.contentInset.top
+            } else {
+                snapshotView?.removeFromSuperview()
+                snapshotView = nil
             }
             previousContentOffsetY = scrollView.contentOffset.y
         }
@@ -252,6 +264,9 @@ extension PullToDismiss: UIScrollViewDelegate {
     }
 
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        snapshotView?.removeFromSuperview()
+        snapshotView = nil
+        
         finishDragging(withVelocity: velocity)
         dragging = false
         previousContentOffsetY = 0.0
