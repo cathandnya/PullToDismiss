@@ -240,7 +240,15 @@ extension PullToDismiss: UIScrollViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if dragging {
             let diff = -(scrollView.contentOffset.y - previousContentOffsetY)
-            if scrollView.contentOffset.y < -scrollView.contentInset.top || (targetViewController?.view.frame.origin.y ?? 0.0) > 0.0 {
+            
+            let safeAreaTop: CGFloat
+            if #available(iOS 11.0, *) {
+                safeAreaTop = scrollView.safeAreaInsets.top
+            } else {
+                safeAreaTop = 0
+            }
+            
+            if scrollView.contentOffset.y <= -scrollView.contentInset.top - safeAreaTop || (targetViewController?.view.frame.origin.y ?? 0.0) > 0.0 {
                 if snapshotView == nil {
                     snapshotView = targetViewController?.view.snapshotView(afterScreenUpdates: false)
                     snapshotView?.isUserInteractionEnabled = false
@@ -248,7 +256,7 @@ extension PullToDismiss: UIScrollViewDelegate {
                 }
                 
                 updateViewPosition(offset: diff)
-                scrollView.contentOffset.y = -scrollView.contentInset.top
+                scrollView.contentOffset.y = -scrollView.contentInset.top - safeAreaTop
             } else {
                 snapshotView?.removeFromSuperview()
                 snapshotView = nil
